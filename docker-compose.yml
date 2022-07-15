@@ -1,0 +1,32 @@
+version: '2'
+services:
+    rabbitmq:
+      image: rabbitmq:management
+      container_name: 'rabbitmq'
+      ports:
+        - "5672:5672"
+        - "15672:15672"
+    products-server:
+        container_name: products-server
+        build:
+            context: product
+            dockerfile: Dockerfile
+        image: products-server:latest
+        ports:
+            - 8080:8080
+        environment:
+            - SPRING_RABBITMQ_HOST=rabbitmq
+        depends_on:
+            - rabbitmq
+    orders-server:
+        container_name: orders-server
+        build:
+            context: order
+            dockerfile: Dockerfile
+        image: orders-server:latest
+        ports:
+            - 8081:8081
+        environment:
+            - SPRING_RABBITMQ_HOST=rabbitmq
+        depends_on:
+            - rabbitmq
