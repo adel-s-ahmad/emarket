@@ -5,6 +5,7 @@
  - Spring Boot
  - JPA
  - H2 Database (in memory database for simplicity)
+ - Swagger
  - RabbitMQ
  - Docker
  - Docker-Compose
@@ -12,7 +13,6 @@
 ## To be implemented later
 - Caching layer (Redis)
 - API Gateway
-- Swagger
 - FTP server to save the csv files
  
  ## Services
