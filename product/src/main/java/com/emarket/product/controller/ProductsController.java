@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.emarket.product.models.*;
 import com.emarket.product.rabbitmq.OrderPlacedConsumer;
+import com.emarket.product.rabbitmq.OrderPlacedQueueConfig;
 import com.emarket.product.services.ProductsService;
 
 @RestController
@@ -25,6 +26,9 @@ public class ProductsController {
 	
 	@Autowired
 	private ProductsService productService;
+	
+	@Autowired
+	private OrderPlacedQueueConfig queueConfig;
 	
 	@GetMapping("products/{sku}")
 	public ResponseEntity<Product> getProduct(@PathVariable String sku) {
@@ -37,5 +41,10 @@ public class ProductsController {
 		} catch(Exception ex) {
 			throw ex;
 		}
+	}
+	
+	@GetMapping("products/config")
+	public String getConfig() {
+		return queueConfig.getOrderPlacedQueueName();
 	}
 }
